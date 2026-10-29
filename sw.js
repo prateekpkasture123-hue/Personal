@@ -1,4 +1,4 @@
-const CACHE='day-by-day-v8';
+const CACHE='day-by-day-v9';
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(['./','./index.html','./app.js','./styles.css','./dashboard.js','./dashboard-model.mjs','./goals.js','./backup.js','./backup-model.mjs','./goal-model.mjs','./manifest.webmanifest','./icon.svg','./logo.svg']))));
 self.addEventListener('fetch',event=>{if(event.request.method==='GET'&&new URL(event.request.url).origin===self.location.origin)event.respondWith(fetch(event.request).catch(()=>caches.match(event.request)));});
 
