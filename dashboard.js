@@ -8,7 +8,6 @@ function renderDashboard(){
   $('#welcome-name').textContent=name?`${name}.`:'Make today yours.';
   $('#home-date').textContent=welcome.date+' · IST';
   $('#daily-quote').textContent=welcome.quote;
-  $('#edit-name').textContent=name?'Edit your name ↗':'Personalize your welcome ↗';
   try{
     const habits=JSON.parse(localStorage.getItem('day-by-day-v1')||'[]');
     const goals=JSON.parse(localStorage.getItem('day-by-day-goals-v1')||'{"goals":[]}').goals;
@@ -32,13 +31,6 @@ function navigate(page){
 }
 for(const button of document.querySelectorAll('[data-page]'))button.onclick=()=>navigate(button.dataset.page);
 for(const button of document.querySelectorAll('[data-open]'))button.onclick=()=>navigate(button.dataset.open);
-$('#edit-name').onclick=()=>{$('#profile-name').value=name;$('#profile-dialog').showModal();};
-$('#profile-cancel').onclick=()=>$('#profile-dialog').close();
-$('#profile-form').onsubmit=event=>{
-  event.preventDefault();const next=$('#profile-name').value.trim();if(!next)return;
-  try{localStorage.setItem('day-by-day-name',next);name=next;$('#profile-dialog').close();$('#profile-status').textContent='';renderDashboard();}
-  catch{$('#profile-status').textContent='Could not save your name. Please try again.';}
-};
 document.addEventListener('tracker-updated',renderDashboard);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)renderDashboard();});
 window.addEventListener('pageshow',renderDashboard);
