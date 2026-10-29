@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192"><rect width="192" height="192" rx="44" fill="#795b45"/><path d="m49 96 31 31 64-64" fill="none" stroke="#f5f0e9" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 1000 1000">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e9dfce"/><stop offset="1" stop-color="#e6dac7"/></linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b28c64"/><stop offset="1" stop-color="#a9845e"/></linearGradient>
+  </defs>
+  <rect width="1000" height="1000" rx="178" fill="url(#paper)"/>
+  <path fill="url(#leaf)" d="M166 299 C152 301 148 308 149 331 C148 441 205 523 295 558 C330 573 359 578 393 583 C411 586 419 597 419 614 L419 723 C419 750 452 764 472 738 C514 680 550 621 589 577 C607 556 628 542 656 534 C794 493 870 398 855 242 C854 226 848 224 832 222 C691 207 568 286 525 405 C511 444 506 470 506 482 C506 501 519 502 577 503 C541 535 510 578 475 623 L475 552 C475 387 401 305 286 297 C242 293 205 295 166 299 Z"/>
+</svg>
