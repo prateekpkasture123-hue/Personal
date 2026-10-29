@@ -7,7 +7,7 @@ try {
   if(stored && Array.isArray(stored.goals)) state={goals:stored.goals.filter(g=>typeof g.id==='string' && typeof g.name==='string' && typeof g.plan==='string' && typeof g.date==='string' && ['daily','weekly','long'].includes(g.period)),reminder:typeof stored.reminder==='string'?stored.reminder:''};
 } catch { $('#error').textContent='Saved goals could not be loaded. Reload before saving new goals.'; }
 function persist(next) {
-  try { localStorage.setItem(storageKey,JSON.stringify(next)); state=next;render();return true; }
+  try { localStorage.setItem(storageKey,JSON.stringify(next)); state=next;render();document.dispatchEvent(new Event("tracker-updated"));return true; }
   catch { $('#error').textContent='Goals could not be saved. Check device storage and try again.';return false; }
 }
 function element(tag,text,className){const el=document.createElement(tag);if(text)el.textContent=text;if(className)el.className=className;return el;}
@@ -30,7 +30,6 @@ function render(){
   $('#reminder-time').value=state.reminder;
   $('#reminder-status').textContent=state.reminder?`Preferred time: ${state.reminder}. Notifications are not active.`:'No reminder time saved.';
 }
-for(const tab of ['habits','goals'])$(`#${tab}-tab`).onclick=()=>{for(const name of ['habits','goals'])$(`#${name}-tab`).setAttribute('aria-pressed',String(name===tab));$('#habit-section').hidden=tab!=='habits';$('#goal-section').hidden=tab!=='goals';render();};
 $('#goal-filters').onclick=e=>{const button=e.target.closest('[data-period]');if(!button)return;period=button.dataset.period;for(const b of $('#goal-filters').children)b.setAttribute('aria-pressed',String(b===button));render();};
 $('#new-goal').onclick=()=>openEditor();$('#goal-cancel').onclick=()=>$('#goal-dialog').close();
 $('#goal-form').onsubmit=e=>{e.preventDefault();const name=$('#goal-name').value.trim();if(!name)return;const goal={id:editing||crypto.randomUUID(),name,period:$('#goal-type').value,date:$('#goal-date').value,plan:$('#goal-plan').value.trim(),done:editing?!!state.goals.find(g=>g.id===editing)?.done:false};const next={...state,goals:editing?state.goals.map(g=>g.id===editing?goal:g):[...state.goals,goal]};if(persist(next)){$('#goal-dialog').close();period=goal.period;for(const b of $('#goal-filters').children)b.setAttribute('aria-pressed',String(b.dataset.period===period));render();}};
